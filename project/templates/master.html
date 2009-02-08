@@ -1,0 +1,23 @@
+{% load i18n %}
+
+<html>
+<head>
+	<title>
+	{% block title %}
+	{% endblock title%}
+	</title>
+</head>
+
+<body>
+	<table width="100%">
+	<tr>
+	<td><a href="/p/{{ pid }}">{% trans "Project" %}</a></td>
+	<td><a href="/w/{{ pid }}">{% trans "Documents" %}</a></td>
+	<td><a href="/s/{{ pid }}">{% trans "Source" %}</a></td>
+	<td><a href="/c/{{ pid }}">{% trans "Code Review" %}</a></td>
+	</tr>
+	</table>
+	{% block contents %}
+	{% endblock contents %}
+</body>
+</html>
