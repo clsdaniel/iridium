@@ -5,6 +5,6 @@ from django.contrib.auth.models import User
 class Project(models.Model):
     name = models.CharField(max_length=120)
     desc = models.TextField()
-    admins = models.ManyToManyField(User)
-    devels = models.ManyToManyField(User)
+    admins = models.ManyToManyField(User, related_name="administers")
+    devels = models.ManyToManyField(User, related_name="develops")
     
