@@ -76,4 +76,10 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.admin',
+    'iridium.project',
+    'iridium.wiki',
+    'iridium.scm',
+    'iridium.issues',
+    'iridium.codereview',
 )
