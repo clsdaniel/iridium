@@ -5,8 +5,8 @@ from django.conf.urls.defaults import *
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Example:
-    # (r'^iridium/', include('iridium.foo.urls')),
+    (r'^p/', include('iridium.project.urls')),
+    (r'^w/', include('iridium.wiki.urls')),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
