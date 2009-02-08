@@ -1,0 +1,16 @@
+{% extends "master.html" %}
+{% load i18n %}
+
+{% block contents %}
+<h1>{{ title }}</h2><hr/>
+<table>
+<tr><th>Page</th><th>Title</th><th>Published</th></tr>
+{% for page in pages %}
+<tr>
+	<td>{{ page.name }}</td>
+	<td>{{ page.title }}</td>
+	<td>{{ page.published }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock contents %}
