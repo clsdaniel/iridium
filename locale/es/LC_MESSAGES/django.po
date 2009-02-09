@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-08 12:07-0700\n"
+"POT-Creation-Date: 2009-02-09 07:07-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,18 +16,30 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: project/templates/master.html:14
-msgid "Project"
-msgstr ""
-
-#: project/templates/master.html:15
-msgid "Documents"
-msgstr ""
-
-#: project/templates/master.html:16
-msgid "Source"
-msgstr ""
-
 #: project/templates/master.html:17
+msgid "Project"
+msgstr "Proyecto"
+
+#: project/templates/master.html:18
+msgid "Documents"
+msgstr "Documentos"
+
+#: project/templates/master.html:19
+msgid "Issues"
+msgstr "Problemas"
+
+#: project/templates/master.html:20
+msgid "Source"
+msgstr "Codigo Fuente"
+
+#: project/templates/master.html:21
 msgid "Code Review"
-msgstr ""
+msgstr "Revision de codigo"
+
+#: wiki/forms.py:5
+msgid "Page name"
+msgstr "Nombre"
+
+#: wiki/forms.py:8
+msgid "Title"
+msgstr "Titulo"
