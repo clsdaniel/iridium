@@ -77,13 +77,9 @@ def editPage(request, pid, wid):
             return HttpResponseRedirect('/w/%s/%s' % (pid, wiki.name))
     else:
         try:
-            print "Retrieving last revision"
             rev = wiki.wikirevision_set.order_by('id')[0]
-            print "Creating form with last revision"
             form = EditPageForm(dict(contents=rev.contents, title=wiki.title))
-            print "All good"
         except: 
-            print "Failed, creating new empty form"
             form = EditPageForm()
     
     return dict(pid=pid, title="Edit: %s" % wiki.name, form=form)
