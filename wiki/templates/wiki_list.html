@@ -1,9 +1,12 @@
 {% extends "master.html" %}
 {% load i18n %}
 
+{% block submenu %}
+<a href="/w/{{ pid }}/new">Create Page</a>
+{% endblock submenu %}
+
 {% block contents %}
 <h1>{{ title }}</h2><hr/>
-<a href="/w/{{ pid }}/new">Create new page</a><br/>
 <table>
 <tr><th>Page</th><th>Title</th><th>Published</th></tr>
 {% for page in pages %}

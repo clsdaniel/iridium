@@ -1,6 +1,10 @@
 {% extends "master.html" %}
 {% load i18n %}
 
+{% block submenu %}
+<a href="/w/{{ pid }}/{{ wid }}/edit">[edit]</a>
+{% endblock submenu %}
+
 {% block contents %}
 <h1>{{ title }}</h2><hr/>
 {{ contents|safe }}
