@@ -25,4 +25,4 @@ def viewProject(request, pid):
     else:
         proj = Project.objects.get(name=pid.lower())
         
-    return dict(pid=pid, name=proj.name, desc=proj.desc)
+    return dict(section='project', pid=pid, title=proj.name, desc=proj.desc)

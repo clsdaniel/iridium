@@ -40,7 +40,7 @@ def viewWiki(request, pid):
     proj = getProject(pid)
         
     pages = proj.wikipage_set.all()
-    return dict(pid=pid, title=proj.name, pages=pages)
+    return dict(section='wiki', pid=pid, title=proj.name, pages=pages)
 
 @template("generic_form.html")
 def newPage(request, pid):
@@ -57,7 +57,7 @@ def newPage(request, pid):
         wiki.save()
         return HttpResponseRedirect('/w/%s/%s/edit' % (pid, name))
         
-    return dict(pid=pid, title="New page", form=form)
+    return dict(section='wiki', pid=pid, title="New page", form=form)
 
 @template("generic_form.html")
 def editPage(request, pid, wid):
@@ -77,21 +77,21 @@ def editPage(request, pid, wid):
             return HttpResponseRedirect('/w/%s/%s' % (pid, wiki.name))
     else:
         try:
-            rev = wiki.wikirevision_set.order_by('id')[0]
+            rev = wiki.wikirevision_set.order_by('-id')[0]
             form = EditPageForm(dict(contents=rev.contents, title=wiki.title))
         except: 
             form = EditPageForm()
     
-    return dict(pid=pid, title="Edit: %s" % wiki.name, form=form)
+    return dict(section='wiki', pid=pid, wid=wid, title="Edit: %s" % wiki.name, form=form)
 
 @template("wiki_view.html")
 def viewPage(request, pid, wid):
     wiki = getWiki(wid)
     
     try:
-        rev = wiki.wikirevision_set.order_by('id')[0]
+        rev = wiki.wikirevision_set.order_by('-id')[0]
     except:
         return HttpResponseRedirect('/w/%s/%s' % (pid, wiki.name))
     
-    return dict(pid=pid, title=wiki.title, contents=rev.contents)
+    return dict(section='wiki', pid=pid, wid=wid, title=wiki.title, contents=rev.contents)
 
