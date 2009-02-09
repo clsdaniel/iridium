@@ -1,0 +1,19 @@
+{% extends "master.html" %}
+{% load i18n %}
+
+{% block submenu %}
+<a href="/w/{{ pid }}/new">Create Page</a>
+{% endblock submenu %}
+
+{% block contents %}
+<h1>{{ repo.title }}: Changelog</h2><hr/>
+<table>
+<tr><th>Message</th><th>Author</th></tr>
+{% for commit in commits %}
+<tr>
+	<td><a href="/s/{{ pid }}/{{ rid }}/diff/{{ commit.id }}">{{ commit.message }}</a></td>
+	<td>{{ commit.author }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock contents %}

@@ -28,6 +28,13 @@ def getProject(pid):
         proj = Project.objects.get(name=pid.lower())
     return proj
 
+def getRepository(rid):
+    if rid.isdigit():
+        repo = Repository.objects.get(id=int(rid))
+    else:
+        repo = Repository.objects.get(title=rid.lower())
+    return repo
+
 @template('scm_list.html')
 def listRepos(request, pid):
     proj = getProject(pid)
@@ -37,3 +44,23 @@ def listRepos(request, pid):
     repos = proj.repository_set.all()
     
     return dict(section='scm', pid=pid, repos=repos)
+
+@template('scm_changelog.html')
+def viewRepo(request, pid, rid):
+    mrepo = getRepository(rid)
+    gitrepo = git.Repo(mrepo.path)
+    commits = gitrepo.commits()
+    
+    return dict(section='scm', pid=pid, rid=rid, repo=mrepo, commits=commits)
+
+
+@template('scm_diff.html')
+def viewDiff(request, pid, rid, cid):
+    mrepo = getRepository(rid)
+    gitrepo = git.Repo(mrepo.path)
+    com = gitrepo.commit(cid)
+    parent = com.parents[0]
+    diff = gitrepo.diff(parent, com)
+    
+    return dict(section='scm', pid=pid, rid=rid, cid=cid, repo=mrepo, diff=diff)
+

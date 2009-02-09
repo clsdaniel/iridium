@@ -1,0 +1,13 @@
+{% extends "master.html" %}
+{% load i18n %}
+
+{% block submenu %}
+<a href="/w/{{ pid }}/new">Create Page</a>
+{% endblock submenu %}
+
+{% block contents %}
+<h1>{{ repo.title }}: {{ cid }}</h2><hr/>
+<pre>
+{{ diff }}
+</pre>
+{% endblock contents %}
