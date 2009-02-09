@@ -5,6 +5,9 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+     {'document_root': 'static', 'show_indexes': True}),
+    
     (r'^p/', include('iridium.project.urls')),
     (r'^w/', include('iridium.wiki.urls')),
 
