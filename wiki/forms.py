@@ -6,4 +6,4 @@ class NewPageForm(forms.Form):
     
 class EditPageForm(forms.Form):
     title = forms.CharField(label=_("Title"), max_length=120)
-    contents = forms.CharField(label=_("Content"), widget=forms.Textarea, max_length=120)
+    contents = forms.CharField(label="", widget=forms.Textarea(attrs={'cols':'80', 'rows': '24'}))
