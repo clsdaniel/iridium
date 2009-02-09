@@ -26,3 +26,9 @@ def viewProject(request, pid):
         proj = Project.objects.get(name=pid.lower())
         
     return dict(section='project', pid=pid, title=proj.name, desc=proj.desc)
+
+@template("project_list.html")
+def listProjects(request):
+    projs = Project.objects.all()
+    
+    return dict(projects=projs)

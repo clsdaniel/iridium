@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<html>
+<head>
+	<title>
+	Iridium Software Development Management
+	</title>
+	<link rel="stylesheet" type="text/css" href="/static/style-screen.css"> </link>
+</head>
+
+<body>
+<h1>Project List</h2><hr/>
+<table>
+<tr><th>Project</th><th>Description</th></tr>
+{% for proj in projects %}
+<tr>
+	<td><a href="/p/{{ proj.id }}">{{ proj.name }}</a></td>
+	<td>{{ proj.desc }}</td>
+</tr>
+{% endfor %}
+</table>
+
+</body>
+</html>
