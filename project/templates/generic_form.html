@@ -1,10 +1,25 @@
 {% extends "master.html" %}
 {% load i18n %}
 
+{% block head %}
+<script type="text/javascript" src="/static/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+		mode : "textareas",
+		theme : "advanced",
+		
+		theme_advanced_toolbar_location: "top",
+		theme_advanced_toolbar_align: "left"
+	});
+</script>
+{% endblock head %}
+
 {% block contents %}
 <h1>{{ title }}</h2><hr/>
 <form method="POST" action="">
+<table>
 {{ form.as_table }}
+</table>
 <input type="submit">
 </form>
 {% endblock contents %}
