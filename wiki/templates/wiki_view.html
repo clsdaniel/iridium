@@ -1,0 +1,7 @@
+{% extends "master.html" %}
+{% load i18n %}
+
+{% block contents %}
+<h1>{{ title }}</h2><hr/>
+{{ contents|safe }}
+{% endblock contents %}
