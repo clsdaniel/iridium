@@ -6,17 +6,25 @@
 	{% block title %}
 	{% endblock title%}
 	</title>
+	<link rel="stylesheet" type="text/css" href="/static/style-screen.css"> </link>
+	
+	{% block head %}
+	{% endblock head %}
 </head>
 
 <body>
-	<table width="100%">
-	<tr>
-	<td><a href="/p/{{ pid }}">{% trans "Project" %}</a></td>
-	<td><a href="/w/{{ pid }}">{% trans "Documents" %}</a></td>
-	<td><a href="/s/{{ pid }}">{% trans "Source" %}</a></td>
-	<td><a href="/c/{{ pid }}">{% trans "Code Review" %}</a></td>
-	</tr>
-	</table>
+	<div class="mainmenu">
+	<a href="/p/{{ pid }}" {% ifequal section 'project' %}class="selected"{% endifequal %}>{% trans "Project" %}</a>
+	<a href="/w/{{ pid }}" {% ifequal section 'wiki' %}class="selected"{% endifequal %}>{% trans "Documents" %}</a>
+	<a href="/i/{{ pid }}" {% ifequal section 'issues' %}class="selected"{% endifequal %}>{% trans "Issues" %}</a>
+	<a href="/s/{{ pid }}" {% ifequal section 'scm' %}class="selected"{% endifequal %}>{% trans "Source" %}</a>
+	<a href="/c/{{ pid }}" {% ifequal section 'codereview' %}class="selected"{% endifequal %}>{% trans "Code Review" %}</a>
+	</div>
+	<div class="submenu">
+	{% block submenu %}
+	{% endblock submenu %}
+	</div>
+	
 	{% block contents %}
 	{% endblock contents %}
 </body>
