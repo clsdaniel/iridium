@@ -1,0 +1,10 @@
+{% extends "master.html" %}
+{% load i18n %}
+
+{% block contents %}
+<h1>{{ title }}</h2><hr/>
+<form method="POST" action="">
+{{ form.as_table }}
+<input type="submit">
+</form>
+{% endblock contents %}
