@@ -1,0 +1,45 @@
+
+div.mainmenu {
+	font-family: "trebuchet ms", "lucidia grande", verdana, arial, sans-serif;
+	line-height:1.2em;
+	color: #333;
+	background-color:#fff;
+	border-collapse:collapse;
+	text-align:left;
+}
+
+div.mainmenu a{
+	text-decoration: none;
+	background: #91a9c2;
+	padding-left: 4px;
+	padding-right: 4px;
+	color: white;
+}
+
+div.mainmenu a.selected {
+	text-decoration: none;
+	background: #5074e9;
+	padding-left: 4px;
+	padding-right: 4px;
+	color: white;
+}
+
+div.submenu {
+	font-size: 80%;
+	font-family: "trebuchet ms", "lucidia grande", verdana, arial, sans-serif;
+	line-height:1.2em;
+	color: #333;
+	background-color:#5074e9;
+	border-collapse:collapse;
+	text-align:left;
+	letter-spacing:.1em;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+div.submenu a{
+	text-decoration: none;
+	margin: 4px;
+	padding: 4px;
+	color: white;
+}
