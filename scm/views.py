@@ -64,3 +64,14 @@ def viewDiff(request, pid, rid, cid):
     
     return dict(section='scm', pid=pid, rid=rid, cid=cid, repo=mrepo, diff=diff)
 
+@template('scm_tree.html')
+def viewTree(request, pid, rid, tree = None):
+    mrepo = getRepository(rid)
+    gitrepo = git.Repo(mrepo.path)
+    if tree:
+        tree = gitrepo.tree(tree)
+    else:
+        tree = gitrepo.tree('master')
+    print tree.items()
+    return dict(section="scm", pid=pid, rid=rid, repo=mrepo, items=tree.items(), tree=tree)
+    
