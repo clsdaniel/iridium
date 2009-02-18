@@ -1,9 +1,36 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
+
+issue_status = ((1, _("New")),
+                (2, _("Accepted")),
+                (3, _("Started")),
+                (4, _("Fixed")),
+                (5, _("Verified")),
+                (6, _("Invalid")),
+                (7, _("Duplicated")),
+                (8, _("WontFix")),
+                )
+
+issue_priority = ((1, _("Low")),
+                  (2, _("Medium")),
+                  (3, _("High")),
+                  (4, _("Critical")),
+                  (5, _("Blocker")),
+                  )
+
+issue_type = (("defect", _("Defect")),
+              ("enhancement", _("Enhancement")),
+              ("task", _("Task")),
+              )
+
+di_type = dict(issue_type)
+di_priority = dict(issue_priority)
+di_status = dict(issue_status)
+
 class NewIssueForm(forms.Form):
     title = forms.CharField(label=_("Title"), max_length=255)
-    issuetype = forms.CharField(label=_("Type"), max_length=255)
-    priority = forms.IntegerField(label=_("Priority"))
-    status = forms.IntegerField(label=_("Status"))
+    issuetype = forms.ChoiceField(label=_("Type"), choices=issue_type)
+    priority = forms.ChoiceField(label=_("Priority"), choices=issue_priority)
+    status = forms.ChoiceField(label=_("Status"), choices=issue_status)
     contents = forms.CharField(label="", widget=forms.Textarea(attrs={'cols':'80', 'rows': '24'}))
