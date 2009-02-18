@@ -35,6 +35,7 @@ def getWiki(wid):
         wiki = WikiPage.objects.get(name=wid.lower())
     return wiki
 
+@login_required
 @template("wiki_list.html")
 def viewWiki(request, pid):
     proj = getProject(pid)
@@ -42,6 +43,7 @@ def viewWiki(request, pid):
     pages = proj.wikipage_set.all()
     return dict(section='wiki', pid=pid, title=proj.name, pages=pages)
 
+@login_required
 @template("generic_form.html")
 def newPage(request, pid):
     if request.method == "POST":
@@ -59,6 +61,7 @@ def newPage(request, pid):
         
     return dict(section='wiki', pid=pid, title="New page", form=form)
 
+@login_required
 @template("generic_form.html")
 def editPage(request, pid, wid):
     wiki = getWiki(wid)
@@ -84,6 +87,7 @@ def editPage(request, pid, wid):
     
     return dict(section='wiki', pid=pid, wid=wid, title="Edit: %s" % wiki.name, form=form)
 
+@login_required
 @template("wiki_view.html")
 def viewPage(request, pid, wid):
     wiki = getWiki(wid)

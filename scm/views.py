@@ -35,6 +35,7 @@ def getRepository(rid):
         repo = Repository.objects.get(title=rid.lower())
     return repo
 
+@login_required
 @template('scm_list.html')
 def listRepos(request, pid):
     proj = getProject(pid)
@@ -45,6 +46,7 @@ def listRepos(request, pid):
     
     return dict(section='scm', pid=pid, repos=repos)
 
+@login_required
 @template('scm_changelog.html')
 def viewRepo(request, pid, rid):
     mrepo = getRepository(rid)
@@ -53,7 +55,7 @@ def viewRepo(request, pid, rid):
     
     return dict(section='scm', pid=pid, rid=rid, repo=mrepo, commits=commits)
 
-
+@login_required
 @template('scm_diff.html')
 def viewDiff(request, pid, rid, cid):
     mrepo = getRepository(rid)
@@ -64,6 +66,7 @@ def viewDiff(request, pid, rid, cid):
     
     return dict(section='scm', pid=pid, rid=rid, cid=cid, repo=mrepo, diff=diff)
 
+@login_required
 @template('scm_tree.html')
 def viewTree(request, pid, rid, tree = None):
     mrepo = getRepository(rid)

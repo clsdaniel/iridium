@@ -18,6 +18,7 @@ from iridium.utils.template import template_django as template
 from iridium.utils.template import render_template
 from models import *
 
+@login_required
 @template("project_view.html")
 def viewProject(request, pid):
     if pid.isdigit():
@@ -27,6 +28,7 @@ def viewProject(request, pid):
         
     return dict(section='project', pid=pid, title=proj.name, desc=proj.desc)
 
+@login_required
 @template("project_list.html")
 def listProjects(request):
     projs = Project.objects.all()
