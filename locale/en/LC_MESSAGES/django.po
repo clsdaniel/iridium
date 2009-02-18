@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-09 07:07-0700\n"
+"POT-Creation-Date: 2009-02-18 00:45-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,30 +16,144 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: project/templates/master.html:17
+#: issues/forms.py:5
+msgid "New"
+msgstr ""
+
+#: issues/forms.py:6
+msgid "Accepted"
+msgstr ""
+
+#: issues/forms.py:7
+msgid "Started"
+msgstr ""
+
+#: issues/forms.py:8
+msgid "Fixed"
+msgstr ""
+
+#: issues/forms.py:9
+msgid "Verified"
+msgstr ""
+
+#: issues/forms.py:10
+msgid "Invalid"
+msgstr ""
+
+#: issues/forms.py:11
+msgid "Duplicated"
+msgstr ""
+
+#: issues/forms.py:12
+msgid "WontFix"
+msgstr ""
+
+#: issues/forms.py:15
+msgid "Low"
+msgstr ""
+
+#: issues/forms.py:16
+msgid "Medium"
+msgstr ""
+
+#: issues/forms.py:17
+msgid "High"
+msgstr ""
+
+#: issues/forms.py:18
+msgid "Critical"
+msgstr ""
+
+#: issues/forms.py:19
+msgid "Blocker"
+msgstr ""
+
+#: issues/forms.py:22
+msgid "Defect"
+msgstr ""
+
+#: issues/forms.py:23
+msgid "Enhancement"
+msgstr ""
+
+#: issues/forms.py:24
+msgid "Task"
+msgstr ""
+
+#: issues/forms.py:31
+msgid ""
+"\n"
+"<p>\n"
+"Description of the problem\n"
+"</p>\n"
+"<br/><br/>\n"
+"\n"
+"What steps will reproduce the problem?\n"
+"<ol>\n"
+"<li> </li>\n"
+"<li> </li>\n"
+"<li> </li>\n"
+"</ol>\n"
+"\n"
+"<p>\n"
+"What is the expected output?\n"
+"</p>\n"
+"\n"
+msgstr ""
+
+#: issues/forms.py:52 wiki/forms.py:8
+msgid "Title"
+msgstr ""
+
+#: issues/forms.py:53
+msgid "Type"
+msgstr ""
+
+#: issues/forms.py:54
+msgid "Priority"
+msgstr ""
+
+#: issues/forms.py:55
+msgid "Status"
+msgstr ""
+
+#: project/templates/master.html:28
+msgid "Iridium"
+msgstr ""
+
+#: project/templates/master.html:30
+msgid "Logout"
+msgstr ""
+
+#: project/templates/master.html:32
+#: project/templates/registration/login.html:38
+msgid "Login"
+msgstr ""
+
+#: project/templates/master.html:36
 msgid "Project"
 msgstr ""
 
-#: project/templates/master.html:18
+#: project/templates/master.html:37
 msgid "Documents"
 msgstr ""
 
-#: project/templates/master.html:19
+#: project/templates/master.html:38
 msgid "Issues"
 msgstr ""
 
-#: project/templates/master.html:20
+#: project/templates/master.html:39
 msgid "Source"
 msgstr ""
 
-#: project/templates/master.html:21
+#: project/templates/master.html:40
 msgid "Code Review"
 msgstr ""
 
-#: wiki/forms.py:5
-msgid "Page name"
+#: project/templates/registration/login.html:57
+msgid "Your username and password didn't match. Please try again"
 msgstr ""
 
-#: wiki/forms.py:8
-msgid "Title"
+#: wiki/forms.py:5
+msgid "Page Title"
 msgstr ""
