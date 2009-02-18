@@ -96,7 +96,7 @@ def viewPage(request, pid, wid):
     try:
         rev = wiki.wikirevision_set.order_by('-id')[0]
     except:
-        return HttpResponseRedirect('/w/%s/%s' % (pid, wiki.name))
+        return HttpResponseRedirect('/w/%s/%i' % (pid, wiki.id))
     
     return dict(section='wiki', pid=pid, wid=wid, title=wiki.title, contents=rev.contents)
 
