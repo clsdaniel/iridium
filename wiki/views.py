@@ -54,8 +54,9 @@ def newPage(request, pid):
     if form.is_valid():
         proj = getProject(pid)
         data = form.clean()
-        name = data['name']
-        wiki = WikiPage(name=name.lower(), project=proj, published=datetime.datetime.now())
+        title = data['name']
+        name = title.replace(' ', "_").replace(":", "_").replace("-", "_").lower()
+        wiki = WikiPage(name=name.lower(), title=title, project=proj, published=datetime.datetime.now())
         wiki.save()
         return HttpResponseRedirect('/w/%s/%s/edit' % (pid, name))
         
