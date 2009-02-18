@@ -1,0 +1,66 @@
+{% load i18n %}
+
+<html>
+<head>
+	<title>
+	{% block title %}
+	{% endblock title%}
+	</title>
+	<link rel="stylesheet" type="text/css" href="/static/style-screen.css"> </link>
+	<style type="text/css">
+	div.layout{
+		padding: 15px;
+	}
+	div.form{
+		background: #11AAFF;
+		width: 320px;
+		padding: 15px;
+	}
+	div.error{
+		background: #FF0000;
+		color: white;
+	}
+	</style>
+	<script type="text/javascript" src="/static/jquery-1.3.1.min.js">
+	</script>
+	<script type="text/javascript" src="/static/jquery.corners.min.js">
+	</script>
+	<script>
+	$(document).ready( function(){
+	  $('div').corners();
+	});
+	</script>
+	
+</head>
+
+<body align="center" valign="middle">
+<div class="layout" align="center" valign="middle">
+<h1>{% trans "Login" %}</h1>
+<form method="post" action=".">
+<div class="form" align="center" valign="middle">
+
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+</tr>
+</table>
+
+<input type="submit" value="login" />
+<input type="hidden" name="next" value="{{ next }}" />
+{% if form.errors %}
+<div class="error">
+<p>{% trans "Your username and password didn't match. Please try again" %}.</p>
+</div>
+{% endif %}
+
+</div>
+</form>
+</div>
+
+</body>
+</html>

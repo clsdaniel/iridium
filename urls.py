@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
      {'document_root': 'static', 'show_indexes': True}),
     
+    (r'^accounts/login/$', 'django.contrib.auth.views.login'),
     (r'^p/', include('iridium.project.urls')),
     (r'^w/', include('iridium.wiki.urls')),
     (r'^s/', include('iridium.scm.urls')),
