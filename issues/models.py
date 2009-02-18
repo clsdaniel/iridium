@@ -7,9 +7,9 @@ class Issue(models.Model):
     project = models.ForeignKey(Project)
     title = models.CharField(max_length=255)
     contents = models.TextField()
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, related_name="issues_authored")
     published = models.DateField()
-    assigned = models.ForeignKey(User)
+    assigned = models.ForeignKey(User, related_name="issues_assigned")
     priority = models.IntegerField()
     status = models.IntegerField()
     
