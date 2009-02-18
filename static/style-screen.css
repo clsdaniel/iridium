@@ -1,4 +1,11 @@
 
+div.header a{
+	text-decoration: none;
+	background: #11AAFF;
+	padding: 4px;
+	color: white;
+}
+
 div.mainmenu {
 	font-family: "trebuchet ms", "lucidia grande", verdana, arial, sans-serif;
 	line-height:1.2em;
