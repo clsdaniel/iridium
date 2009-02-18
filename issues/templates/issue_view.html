@@ -1,16 +1,18 @@
 {% extends "master.html" %}
 {% load i18n %}
+{% load extratags %}
 
 {% block submenu %}
-<a href="/w/{{ pid }}/{{ wid }}/edit">Modify</a>
+<a href="/w/{{ pid }}/{{ issue.id }}/edit">Modify</a>
 {% endblock submenu %}
 
 {% block contents %}
 <h1>{{ issue.title }}</h2><hr/>
 <table>
-<tr><th>Type:</th><td>{{ issue.type }}</th></tr>
-<tr><th>Priority:</th><td>{{ issue.priority }}</th></tr>
-<tr><th>Status:</th><td>{{ issue.status }}</th></tr>
+<tr><th>Type:</th><td>{{ issue.issuetype|lookup:di_type }}</th></tr>
+<tr><th>Priority:</th><td>{{ issue.priority|lookup:di_priority }}</th></tr>
+<tr><th>Status:</th><td>{{ issue.status|lookup:di_status }}</th></tr>
+<tr><th>Author:</th><td>{{ issue.author.username }}</th></tr>
 <tr><th>Published:</th><td>{{ issue.published }}</th></tr>
 </table>
 <br/>

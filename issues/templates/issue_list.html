@@ -1,5 +1,6 @@
 {% extends "master.html" %}
 {% load i18n %}
+{% load extratags %}
 
 {% block submenu %}
 <a href="/i/{{ pid }}/new">Create Issue</a>
@@ -12,10 +13,10 @@
 {% for issue in issues %}
 <tr>
 	<td><a href="/i/{{ pid }}/{{ issue.id }}">{{ issue.id }}</a></td>
-	<td>{{ issue.issuetype }}</td>
-	<td>{{ issue.priority }}</td>
+	<td>{{ issue.issuetype|lookup:di_type }}</td>
+	<td>{{ issue.priority|lookup:di_priority }}</td>
 	<td><a href="/i/{{ pid }}/{{ issue.id }}">{{ issue.title }}</a></td>
-	<td>{{ issue.status }}</td>
+	<td>{{ issue.status|lookup:di_status }}</td>
 	<td>{{ issue.published }}</td>
 </tr>
 {% endfor %}
