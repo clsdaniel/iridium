@@ -28,9 +28,29 @@ di_type = dict(issue_type)
 di_priority = dict(issue_priority)
 di_status = dict(issue_status)
 
+bugreport = """
+<p>
+Description of the problem
+</p>
+<br/><br/>
+
+What steps will reproduce the problem?
+<ol>
+<li> </li>
+<li> </li>
+<li> </li>
+</ol>
+
+<p>
+What is the expected output?
+</p>
+
+"""
+
+
 class NewIssueForm(forms.Form):
     title = forms.CharField(label=_("Title"), max_length=255)
     issuetype = forms.ChoiceField(label=_("Type"), choices=issue_type)
     priority = forms.ChoiceField(label=_("Priority"), choices=issue_priority)
     status = forms.ChoiceField(label=_("Status"), choices=issue_status)
-    contents = forms.CharField(label="", widget=forms.Textarea(attrs={'cols':'80', 'rows': '24'}))
+    contents = forms.CharField(label="", widget=forms.Textarea(attrs={'cols':'80', 'rows': '24'}), initial=bugreport)
