@@ -28,7 +28,7 @@ di_type = dict(issue_type)
 di_priority = dict(issue_priority)
 di_status = dict(issue_status)
 
-bugreport = """
+bugreport = _("""
 <p>
 Description of the problem
 </p>
@@ -45,7 +45,7 @@ What steps will reproduce the problem?
 What is the expected output?
 </p>
 
-"""
+""")
 
 
 class NewIssueForm(forms.Form):
