@@ -84,7 +84,7 @@ def editPage(request, pid, wid):
             rev = wiki.wikirevision_set.order_by('-id')[0]
             form = EditPageForm(dict(contents=rev.contents, title=wiki.title))
         except: 
-            form = EditPageForm()
+            form = EditPageForm(dict(title=wiki.title))
     
     return dict(section='wiki', pid=pid, wid=wid, title="Edit: %s" % wiki.name, form=form)
 
