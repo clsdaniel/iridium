@@ -34,7 +34,8 @@ def listIssues(request, pid):
     proj = getProject(pid)
     issues = proj.issue_set.all()
     
-    return dict(section="issues", pid=pid, title=proj.name, issues=issues)
+    return dict(section="issues", pid=pid, title=proj.name, issues=issues,
+                di_priority=di_priority, di_status=di_status, di_type=di_type)
 
 
 @login_required
@@ -46,7 +47,8 @@ def viewIssue(request, pid, sid):
     except:
         HttpResponseRedirect('/i/%s' % pid)
     
-    return dict(section="issues", pid=pid, sid=sid, issue=issue)
+    return dict(section="issues", pid=pid, sid=sid, issue=issue, 
+                di_priority=di_priority, di_status=di_status, di_type=di_type)
     
 
 @login_required
