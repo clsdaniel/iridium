@@ -1,0 +1,23 @@
+{% extends "master.html" %}
+{% load i18n %}
+
+{% block submenu %}
+<a href="/i/{{ pid }}/new">Create Issue</a>
+{% endblock submenu %}
+
+{% block contents %}
+<h1>{{ title }}</h2><hr/>
+<table>
+<tr><th>#</th><th>Type</th><th>Priority</th><th>Title</th><th>Status</th><th>Published</th></tr>
+{% for issue in issues %}
+<tr>
+	<td><a href="/i/{{ pid }}/{{ issue.id }}">{{ issue.id }}</a></td>
+	<td>{{ issue.issuetype }}</td>
+	<td>{{ issue.priority }}</td>
+	<td><a href="/i/{{ pid }}/{{ issue.id }}">{{ issue.title }}</a></td>
+	<td>{{ issue.status }}</td>
+	<td>{{ issue.published }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock contents %}

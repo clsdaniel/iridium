@@ -1,0 +1,19 @@
+{% extends "master.html" %}
+{% load i18n %}
+
+{% block submenu %}
+<a href="/w/{{ pid }}/{{ wid }}/edit">Modify</a>
+{% endblock submenu %}
+
+{% block contents %}
+<h1>{{ issue.title }}</h2><hr/>
+<table>
+<tr><th>Type:</th><td>{{ issue.type }}</th></tr>
+<tr><th>Priority:</th><td>{{ issue.priority }}</th></tr>
+<tr><th>Status:</th><td>{{ issue.status }}</th></tr>
+<tr><th>Published:</th><td>{{ issue.published }}</th></tr>
+</table>
+<br/>
+{{ issue.contents|safe }}
+
+{% endblock contents %}
