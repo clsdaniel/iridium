@@ -78,7 +78,7 @@ def editPage(request, pid, wid):
             wiki.published = published
             rev.save()
             wiki.save()
-            return HttpResponseRedirect('/w/%s/%s' % (pid, wiki.name))
+            return HttpResponseRedirect('/w/%s/%s' % (pid, wiki.id))
     else:
         try:
             rev = wiki.wikirevision_set.order_by('-id')[0]
