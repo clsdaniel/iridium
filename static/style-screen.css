@@ -50,3 +50,14 @@ div.submenu a{
 	padding: 4px;
 	color: white;
 }
+
+table.comment {
+	border: None;
+	background-color:#91a9c2;
+	width: 640px;
+	margin-bottom: 5px;
+}
+
+table.comment th{
+	background-color:#5074e9;
+}
