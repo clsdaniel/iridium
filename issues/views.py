@@ -47,7 +47,7 @@ def viewIssue(request, pid, sid):
     except:
         HttpResponseRedirect('/i/%s' % pid)
     
-    return dict(section="issues", pid=pid, sid=sid, issue=issue, 
+    return dict(section="issues", pid=pid, sid=sid, issue=issue, comments=issue.comments.all(),
                 di_priority=di_priority, di_status=di_status, di_type=di_type)
     
 
@@ -73,3 +73,20 @@ def newIssue(request, pid):
         return HttpResponseRedirect('/i/%s/%i' % (pid, issue.id))
         
     return dict(section='issues', pid=pid, title="New issue", form=form)
+
+@login_required
+def commentIssue(request, pid, sid):
+    if request.method != "POST":
+        return HttpResponseRedirect("/")
+    
+    title = request.POST['title']
+    contents = request.POST['contents']
+    
+    issue = Issue.objects.get(id=int(sid))
+    comment = issue.comments.create(title=title, contents=contents,
+                                    author=request.user, issue=issue,
+                                    published=datetime.datetime.now())
+    comment.save()
+    issue.save()
+    
+    return HttpResponseRedirect('/i/%s/%i' % (pid, issue.id))
