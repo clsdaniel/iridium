@@ -12,6 +12,10 @@
 		theme_advanced_toolbar_location: "top",
 		theme_advanced_toolbar_align: "left"
 	});
+	$(document).ready( function(){
+	  $('.comment').corners("top");
+	  $('.comment th').corners("top");
+	});
 </script>
 {% endblock head %}
 
@@ -34,11 +38,12 @@
 <hr/>
 
 {% for comment in comments %}
-<div class="comment">
-{{ comment.title }} <br/>
-
+<table class="comment" cellspacing="0">
+<tr><th align="left">{{ comment.title }}</th></tr>
+<tr><td>
 {{ comment.contents|safe }}
-</div>
+</td></tr>
+</table>
 {% endfor %}
 
 <hr/>
