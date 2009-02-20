@@ -54,3 +54,10 @@ class NewIssueForm(forms.Form):
     priority = forms.ChoiceField(label=_("Priority"), choices=issue_priority)
     status = forms.ChoiceField(label=_("Status"), choices=issue_status)
     contents = forms.CharField(label="", widget=forms.Textarea(attrs={'cols':'80', 'rows': '24'}), initial=bugreport)
+    
+class EditIssueForm(forms.Form):
+    issuetype = forms.ChoiceField(label=_("Type"), choices=issue_type)
+    priority = forms.ChoiceField(label=_("Priority"), choices=issue_priority)
+    status = forms.ChoiceField(label=_("Status"), choices=issue_status)
+    comment = forms.CharField(label="Comment", widget=forms.Textarea(attrs={'cols':'80', 'rows': '24'}))
+
