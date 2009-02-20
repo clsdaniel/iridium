@@ -15,7 +15,7 @@ class Issue(models.Model):
     status = models.IntegerField()
     
 class IssueFile(models.Model):
-    issue = models.ForeignKey(Issue)
+    issue = models.ForeignKey(Issue, related_name="files")
     filename = models.CharField(max_length=255)
     filedesc = models.CharField(max_length=255)
     filesize = models.IntegerField()
@@ -23,6 +23,7 @@ class IssueFile(models.Model):
     filehash = models.CharField(max_length=32)
     
 class IssueComment(models.Model):
+    issue = models.ForeignKey(Issue, related_name="comments")
     title = models.CharField(max_length=255)
     contents = models.TextField()
     author = models.ForeignKey(User)
