@@ -2,8 +2,21 @@
 {% load i18n %}
 {% load extratags %}
 
+{% block head %}
+<script type="text/javascript" src="/static/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+		mode : "textareas",
+		theme : "advanced",
+		
+		theme_advanced_toolbar_location: "top",
+		theme_advanced_toolbar_align: "left"
+	});
+</script>
+{% endblock head %}
+
 {% block submenu %}
-<a href="/w/{{ pid }}/{{ issue.id }}/edit">Modify</a>
+<a href="/i/{{ pid }}/{{ issue.id }}/edit">Modify</a>
 {% endblock submenu %}
 
 {% block contents %}
@@ -17,5 +30,29 @@
 </table>
 <br/>
 {{ issue.contents|safe }}
+
+<hr/>
+
+{% for comment in comments %}
+<div class="comment">
+{{ comment.title }} <br/>
+
+{{ comment.contents|safe }}
+</div>
+{% endfor %}
+
+<hr/>
+<form action="/i/{{ pid }}/{{ issue.id }}/comment" method="POST">
+<table>
+<tr><th>Title:</th><td><input type="text" name="title" size="60"></td></tr>
+<tr><td colspan="2">
+<textarea name="contents" cols="80" rows="20">
+</textarea>
+</td></tr>
+<tr><td colspan="2" align="right">
+<input type="submit" value="Send Comment">
+</td></tr>
+</table>
+</form>
 
 {% endblock contents %}
