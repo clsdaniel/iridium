@@ -1,0 +1,92 @@
+{% extends "master.html" %}
+{% load i18n %}
+
+{% block head %}
+<script type="text/javascript" src="/static/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+	tinyMCE.init({
+		mode : "textareas",
+		theme : "advanced",
+		
+		theme_advanced_toolbar_location: "top",
+		theme_advanced_toolbar_align: "left"
+	});
+	
+function insertHTML(html) {
+    ed = tinyMCE.selectedInstance;
+    ed.execCommand("mceInsertContent",false,html);
+}
+
+function insertImage(fname){
+	insertHTML('<img src="/static/upload/' + fname + '">');
+}
+
+function insertFile(fname, iname){
+	insertHTML('<a href="/static/upload/' + fname + '">' + iname + '</a>');
+}
+
+</script>
+<script type="text/javascript" src="/static/jquery.ajax_upload.min.js">
+</script>
+
+<script>
+refreshFiles = function(){
+	$('#wikifiles').empty();
+	$.getJSON('wikiFiles',
+	function(data){
+		$.each(data.items, function(i, item){
+			if (item.filetype == 'image'){
+				link = '<a href="#" onclick="insertImage(\'' + item.hash + '\')">' + item.name + '</a>';
+			}else{
+				link = '<a href="#" onclick="insertFile(\'' + item.hash + '\', \'' + item.name + '\')">' + item.name + '</a>';
+			}
+			//link = '<a href="/static/upload/' + item.hash + '">' + item.name + '</a>';
+			$("#wikifiles").append(link + "<br/>");
+		});
+	});
+}
+
+	$(document).ready( function(){
+	  new Ajax_upload('#upload_button',{
+		action: 'uploadFile',
+		name: 'fileupload',
+		autoSubmit: true,
+		onSubmit: function(file, extension){
+			$('#msg').empty();
+			$("#msg").append("Sending File");
+		},
+		onComplete: function(file, response){
+			$('#msg').empty();
+			$("#msg").append("File send ok");
+			
+			refreshFiles();
+		}
+	  });
+	  refreshFiles();
+	});
+</script>
+	
+{% endblock head %}
+
+{% block contents %}
+<h1>{{ title }}</h2><hr/>
+<table>
+<tr><td>
+<form method="POST" action="">
+<table>
+{{ form.as_table }}
+</table>
+<input type="submit">
+</form>
+</td>
+
+<td width="120px" align="center" valign="top">
+<b>Files</b>
+<div id="wikifiles">
+</div>
+<input type="submit" value="Upload File" id="upload_button">
+<div id="msg"></div>
+</td>
+</tr>
+</table>
+{% endblock contents %}
