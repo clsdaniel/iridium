@@ -5,6 +5,7 @@ from iridium.project.models import Project
 # Create your models here.
 class Issue(models.Model):
     project = models.ForeignKey(Project)
+    issuenumber = models.IntegerField()
     title = models.CharField(max_length=255)
     contents = models.TextField()
     issuetype = models.CharField(max_length=50)
