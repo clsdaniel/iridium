@@ -11,7 +11,7 @@ class Issue(models.Model):
     issuetype = models.CharField(max_length=50)
     author = models.ForeignKey(User, related_name="issues_authored")
     published = models.DateField()
-    assigned = models.ForeignKey(User, related_name="issues_assigned", default=0)
+    assigned = models.ForeignKey(User, related_name="issues_assigned", null=True)
     priority = models.IntegerField()
     status = models.IntegerField()
     
