@@ -3,6 +3,8 @@ import datetime
 import md5
 import os
 
+import simplejson
+
 # Django Imports
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
@@ -106,6 +108,7 @@ def uploadFile(request, pid, wid):
         return HttpResponseRedirect('/')
 
     wiki = getWiki(wid)
+    
     fd = request.FILES['fileupload']
     outfd = file('static/upload/stage-%s' % fd.name, 'w')
     md5hash = md5.md5()
@@ -115,24 +118,32 @@ def uploadFile(request, pid, wid):
         outfd.write(chunk)
         
     fd.close()
+    
     filehash = md5hash.hexdigest()
     os.rename('static/upload/stage-%s' % fd.name, 'static/upload/%s' % filehash)
+    
     wfile = wiki.files.create(filename=fd.name, filesize=fd.size, 
                               filetype=fd.content_type,
                               filehash=filehash)
     wfile.save()
     wiki.save()
-    
-    return HttpResponse()
-    
 
-class WikiFile(models.Model):
-    page = models.ForeignKey(WikiPage)
-    filename = models.CharField(max_length=255)
-    filedesc = models.CharField(max_length=255)
-    filesize = models.IntegerField()
-    filetype = models.CharField(max_length=32)
-    filehash = models.CharField(max_length=32)
+def getFileType(mime):
+    if mime.find('image') != -1:
+        return 'image'
+    else:
+        return 'file'
+    
+@login_required
+def wikiFiles(request, pid, wid):
+    wiki = getWiki(wid)
+    files = wiki.files.all()
+    
+    items = dict(items=[dict(name=fd.filename, 
+                             hash=fd.filehash, 
+                             filetype=getFileType(fd.filetype)) 
+                        for fd in files])
+    
+    return HttpResponse(simplejson.dumps(items))
+        
 
-    
-    
