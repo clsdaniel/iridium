@@ -88,11 +88,13 @@ def newIssue(request, pid):
     if form.is_valid():
         proj = getProject(pid)
         data = form.clean()
+        issuenum = proj.issue_set.count()
         data['author'] = request.user
         data['published'] = datetime.datetime.now()
         data['priority'] = int(data['priority'])
         data['status'] = int(data['status'])
         data['project'] = proj
+        data['issuenumber'] = issuenum
         issue = proj.issue_set.create(**data)
         issue.save()
         proj.save()
