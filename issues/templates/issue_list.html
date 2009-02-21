@@ -12,7 +12,7 @@
 <tr><th>#</th><th>Type</th><th>Priority</th><th>Title</th><th>Status</th><th>Published</th></tr>
 {% for issue in issues %}
 <tr>
-	<td><a href="/i/{{ pid }}/{{ issue.id }}">{{ issue.id }}</a></td>
+	<td><a href="/i/{{ pid }}/{{ issue.id }}">{{ issue.issuenumber }}</a></td>
 	<td>{{ issue.issuetype|lookup:di_type }}</td>
 	<td>{{ issue.priority|lookup:di_priority }}</td>
 	<td><a href="/i/{{ pid }}/{{ issue.id }}">{{ issue.title }}</a></td>
