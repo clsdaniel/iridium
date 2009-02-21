@@ -63,7 +63,7 @@ def newPage(request, pid):
     return dict(section='wiki', pid=pid, title="New page", form=form)
 
 @login_required
-@template("generic_form.html")
+@template("wiki_edit.html")
 def editPage(request, pid, wid):
     wiki = getWiki(wid)
     
@@ -100,3 +100,39 @@ def viewPage(request, pid, wid):
     
     return dict(section='wiki', pid=pid, wid=wid, title=wiki.title, contents=rev.contents)
 
+@login_required
+def uploadFile(request, pid, wid):
+    if request.method != "POST":
+        return HttpResponseRedirect('/')
+
+    wiki = getWiki(wid)
+    fd = request.FILES['fileupload']
+    outfd = file('static/upload/stage-%s' % fd.name, 'w')
+    md5hash = md5.md5()
+    
+    for chunk in fd.chunks():
+        md5hash.update(chunk)
+        outfd.write(chunk)
+        
+    fd.close()
+    filehash = md5hash.hexdigest()
+    os.rename('static/upload/stage-%s' % fd.name, 'static/upload/%s' % filehash)
+    wfile = wiki.files.create(filename=fd.name, filesize=fd.size, 
+                              filetype=fd.content_type,
+                              filehash=filehash)
+    wfile.save()
+    wiki.save()
+    
+    return HttpResponse()
+    
+
+class WikiFile(models.Model):
+    page = models.ForeignKey(WikiPage)
+    filename = models.CharField(max_length=255)
+    filedesc = models.CharField(max_length=255)
+    filesize = models.IntegerField()
+    filetype = models.CharField(max_length=32)
+    filehash = models.CharField(max_length=32)
+
+    
+    
