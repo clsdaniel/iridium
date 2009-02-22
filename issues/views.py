@@ -133,6 +133,7 @@ def editIssue(request, pid, sid):
                                     published=datetime.datetime.now())
         comment.save()
         issue.save()
+        return HttpResponseRedirect('/i/%s/%i' % (pid, issue.id))
         
         
     issue = Issue.objects.get(id=int(sid))
