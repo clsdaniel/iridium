@@ -17,12 +17,12 @@ function insertHTML(html) {
     ed.execCommand("mceInsertContent",false,html);
 }
 
-function insertImage(fname){
-	insertHTML('<img src="/static/upload/' + fname + '">');
+function insertImage(fname, iname){
+	insertHTML('<img src="/static/upload/' + fname + '/' + iname + '">');
 }
 
 function insertFile(fname, iname){
-	insertHTML('<a href="/static/upload/' + fname + '">' + iname + '</a>');
+	insertHTML('<a href="/static/upload/' + fname + '/' + iname + '">' + iname + '</a>');
 }
 
 </script>
@@ -36,7 +36,7 @@ refreshFiles = function(){
 	function(data){
 		$.each(data.items, function(i, item){
 			if (item.filetype == 'image'){
-				link = '<a href="#" onclick="insertImage(\'' + item.hash + '\')">' + item.name + '</a>';
+				link = '<a href="#" onclick="insertImage(\'' + item.hash + '\', \'' + item.name + '\')">' + item.name + '</a>';
 			}else{
 				link = '<a href="#" onclick="insertFile(\'' + item.hash + '\', \'' + item.name + '\')">' + item.name + '</a>';
 			}

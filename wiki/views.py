@@ -120,7 +120,8 @@ def uploadFile(request, pid, wid):
     fd.close()
     
     filehash = md5hash.hexdigest()
-    os.rename('static/upload/stage-%s' % fd.name, 'static/upload/%s' % filehash)
+    os.mkdir('static/upload/%s' % filehash)
+    os.rename('static/upload/stage-%s' % fd.name, 'static/upload/%s/%s' % (filehash, fd.name))
     
     wfile = wiki.files.create(filename=fd.name, filesize=fd.size, 
                               filetype=fd.content_type,
