@@ -61,3 +61,21 @@ table.comment {
 table.comment th{
 	background-color:#5074e9;
 }
+
+table.projectlist {
+	border: 1px solid black;
+}
+
+table.projectlist a {
+	text-decoration: None;
+}
+
+table.projectlist th{
+	background: #91a9c2;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+tr.even {
+	background: #dedfe2;
+}
