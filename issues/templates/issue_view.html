@@ -33,7 +33,7 @@
 <tr><th>Published:</th><td>{{ issue.published }}</th></tr>
 </table>
 <br/>
-{{ issue.contents|safe }}
+{{ issue.contents|tracklinks:pid|safe }}
 
 <hr/>
 
@@ -41,7 +41,7 @@
 <table class="comment" cellspacing="0">
 <tr><th align="left">{{ comment.title }}</th></tr>
 <tr><td>
-{{ comment.contents|safe }}
+{{ comment.contents|traclinks:pid|safe }}
 </td></tr>
 </table>
 {% endfor %}
