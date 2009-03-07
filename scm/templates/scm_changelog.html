@@ -1,5 +1,15 @@
 {% extends "master.html" %}
 {% load i18n %}
+{% load extratags %}
+
+{% block head %}
+<script>
+	$(document).ready( function(){
+	  $('.projectlist').corners();
+	  $('.projectlist tr:even').addClass("even");
+	});
+	</script>
+{% endblock head %}
 
 {% block submenu %}
 <a href="/s/{{ pid }}/{{ rid }}/t">Tree</a>
@@ -8,11 +18,11 @@
 
 {% block contents %}
 <h1>{{ repo.title }}: Changelog</h2><hr/>
-<table>
+<table class="projectlist">
 <tr><th>Message</th><th>Author</th></tr>
 {% for commit in commits %}
 <tr>
-	<td><a href="/s/{{ pid }}/{{ rid }}/diff/{{ commit.id }}">{{ commit.message }}</a></td>
+	<td><a href="/s/{{ pid }}/{{ rid }}/diff/{{ commit.id }}">{{ commit.message|firstline }}</a></td>
 	<td>{{ commit.author }}</td>
 </tr>
 {% endfor %}
