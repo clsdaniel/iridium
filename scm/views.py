@@ -64,7 +64,8 @@ def viewDiff(request, pid, rid, cid):
     parent = com.parents[0]
     diff = gitrepo.diff(parent, com)
     
-    return dict(section='scm', pid=pid, rid=rid, cid=cid, repo=mrepo, diff=diff)
+    return dict(section='scm', pid=pid, rid=rid, cid=cid, 
+                repo=mrepo, diff=diff, commit=com)
 
 @login_required
 @template('scm_tree.html')

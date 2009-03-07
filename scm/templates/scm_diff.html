@@ -8,6 +8,7 @@
 
 {% block contents %}
 <h1>{{ repo.title }}: {{ cid }}</h2><hr/>
+{{ commit.message|linebreaks }}
 <pre>
 {{ diff }}
 </pre>
