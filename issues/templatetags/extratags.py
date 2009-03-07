@@ -13,6 +13,13 @@ def lookup(value, arg):
     return arg[value]
 
 @register.filter
+def firstline(value):
+    lines = value.split('\n', 1) 
+    if len(lines) == 1:
+        return value
+    return lines[0]
+
+@register.filter
 def traclinks(value, pid):
     pos = 0
     match = bugre.search(value, pos)
