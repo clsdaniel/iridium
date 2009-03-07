@@ -3,8 +3,8 @@ import re
 
 bugre = re.compile("#(?P<id>\d+)")
 bugalt = re.compile("issue:(?P<id>\d+)")
-gittag = re.compile("\[(?P<repo>[\d\w]*):(?P<id>[\d\w]{5,32})\]")
-gitalt = re.compile("git:(?P<repo>[\d\w]*):(?P<id>[\d\w]{5,32})")
+gittag = re.compile("\[(?P<repo>[\d\w]*):(?P<id>[\d\w]{5,40})\]")
+gitalt = re.compile("git:(?P<repo>[\d\w]*):(?P<id>[\d\w]{5,40})")
 
 register = template.Library()
 
@@ -34,7 +34,7 @@ def traclinks(value, pid):
     def gitreplace(match):
         rid = match.group('id')
         repo = match.group('repo')
-        return "<a href='/s/%s/%s/%s'>%s</a>" % (pid, repo, rid, match.group())
+        return "<a href='/s/%s/%s/diff/%s'>%s</a>" % (pid, repo, rid, match.group())
     value = gittag.sub(gitreplace, value)
     value = gitalt.sub(gitreplace, value)
             
