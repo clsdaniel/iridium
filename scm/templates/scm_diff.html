@@ -1,6 +1,10 @@
 {% extends "master.html" %}
 {% load i18n %}
 
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/static/pygments.css"> </link>
+{% endblock head %}
+
 {% block submenu %}
 <a href="/s/{{ pid }}/{{ rid }}/t">Tree</a>
 <a href="/s/{{ pid }}/{{ rid }}">Changelog</a>
@@ -10,6 +14,6 @@
 <h1>{{ repo.title }}: {{ cid }}</h2><hr/>
 {{ commit.message|linebreaks }}
 <pre>
-{{ diff }}
+{{ diff|safe }}
 </pre>
 {% endblock contents %}

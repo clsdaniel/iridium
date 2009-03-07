@@ -2,6 +2,13 @@
 import datetime
 import os
 import git
+try:
+    import pygments
+    from pygments import highlight
+    from pygments.lexers import guess_lexer, DiffLexer, PythonLexer
+    from pygments.formatters import HtmlFormatter
+except:
+    pass
 
 # Django Imports
 from django.http import HttpResponse, HttpResponseRedirect
@@ -63,6 +70,18 @@ def viewDiff(request, pid, rid, cid):
     com = gitrepo.commit(cid)
     parent = com.parents[0]
     diff = gitrepo.diff(parent, com)
+    
+    try:
+        if "highlight" in dir(pygments):
+            pass
+        try:
+            lexer = guess_lexer(diff)
+        except:
+            lexer = DiffLexer()
+        print "Using lexer: ", lexer
+        diff = highlight(diff, lexer, HtmlFormatter())
+    except:
+        pass
     
     return dict(section='scm', pid=pid, rid=rid, cid=cid, 
                 repo=mrepo, diff=diff, commit=com)
