@@ -1,13 +1,22 @@
 {% extends "master.html" %}
 {% load i18n %}
 
+{% block head %}
+<script>
+	$(document).ready( function(){
+	  $('.styledtable').corners();
+	  $('.styledtable tr:even').addClass("even");
+	});
+</script>
+{% endblock head %}
+	
 {% block submenu %}
 <a href="/w/{{ pid }}/new">Create Page</a>
 {% endblock submenu %}
 
 {% block contents %}
 <h1>{{ title }}</h2><hr/>
-<table>
+<table class="styledtable">
 <tr><th>Title</th><th>Published</th></tr>
 {% for page in pages %}
 <tr>

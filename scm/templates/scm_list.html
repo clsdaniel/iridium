@@ -1,12 +1,21 @@
 {% extends "master.html" %}
 {% load i18n %}
 
+{% block head %}
+<script>
+	$(document).ready( function(){
+	  $('.styledtable').corners();
+	  $('.styledtable tr:even').addClass("even");
+	});
+</script>
+{% endblock head %}
+
 {% block submenu %}
 {% endblock submenu %}
 
 {% block contents %}
 <h1>Project Repositories</h2><hr/>
-<table>
+<table class="styledtable">
 <tr><th>Repository</th><th>Description</th></tr>
 {% for repo in repos %}
 <tr>

@@ -12,15 +12,15 @@
 	</script>
 	<script>
 	$(document).ready( function(){
-	  $('.projectlist').corners();
-	  $('.projectlist tr:even').addClass("even");
+	  $('.styledtable').corners();
+	  $('.styledtable tr:even').addClass("even");
 	});
 	</script>
 </head>
 
 <body>
 <h1>Project List</h2><hr/>
-<table class="projectlist">
+<table class="styledtable">
 <tr><th>Project</th><th>Description</th></tr>
 {% for proj in projects %}
 <tr>

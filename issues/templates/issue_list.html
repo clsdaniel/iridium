@@ -2,13 +2,22 @@
 {% load i18n %}
 {% load extratags %}
 
+{% block head %}
+<script>
+	$(document).ready( function(){
+	  $('.styledtable').corners();
+	  $('.styledtable tr:even').addClass("even");
+	});
+	</script>
+{% endblock head %}
+
 {% block submenu %}
 <a href="/i/{{ pid }}/new">Create Issue</a>
 {% endblock submenu %}
 
 {% block contents %}
 <h1>{{ title }}</h2><hr/>
-<table>
+<table class="styledtable">
 <tr><th>#</th><th>Type</th><th>Priority</th><th>Title</th><th>Status</th><th>Published</th></tr>
 {% for issue in issues %}
 <tr>
