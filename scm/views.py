@@ -7,8 +7,9 @@ try:
     from pygments import highlight
     from pygments.lexers import guess_lexer, DiffLexer, PythonLexer
     from pygments.formatters import HtmlFormatter
+    HAS_PYGMENTS = True
 except:
-    pass
+    HAS_PYGMENTS = False
 
 # Django Imports
 from django.http import HttpResponse, HttpResponseRedirect
@@ -71,20 +72,17 @@ def viewDiff(request, pid, rid, cid):
     parent = com.parents[0]
     diff = gitrepo.diff(parent, com)
     
-    try:
-        if "highlight" in dir(pygments):
-            pass
+    if HAS_PYGMENTS:
         try:
             lexer = guess_lexer(diff)
         except:
             lexer = DiffLexer()
-        print "Using lexer: ", lexer
         diff = highlight(diff, lexer, HtmlFormatter())
-    except:
+    else:
         pass
     
     return dict(section='scm', pid=pid, rid=rid, cid=cid, 
-                repo=mrepo, diff=diff, commit=com)
+                repo=mrepo, diff=diff, commit=com, HAS_PYGMENTS=HAS_PYGMENTS)
 
 @login_required
 @template('scm_tree.html')
