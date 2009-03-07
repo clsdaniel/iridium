@@ -1,5 +1,6 @@
 {% extends "master.html" %}
 {% load i18n %}
+{% load extratags %}
 
 {% block submenu %}
 <a href="/w/{{ pid }}/{{ wid }}/edit">[edit]</a>
@@ -7,5 +8,5 @@
 
 {% block contents %}
 <h1>{{ title }}</h2><hr/>
-{{ contents|safe }}
+{{ contents|traclinks:pid|safe }}
 {% endblock contents %}
