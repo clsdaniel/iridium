@@ -24,43 +24,18 @@ def traclinks(value, pid):
     pos = 0
     match = bugre.search(value, pos)
     
-    while match:
-        iid = match.group('id')
-        srep = match.group()
-        value = value.replace(srep, "<a href='/i/%s/%s'>Issue %s</a>" % (pid, iid, iid))
-        pos = match.end()
-        match = bugre.search(value, pos)
-        
-    pos = 0
-    match = bugalt.search(value, pos)
+    def bugreplace(match):
+        bid = match.group('id')
+        return "<a href='/i/%s/%s'>%s</a>" % (pid, bid, match.group())
     
-    while match:
-        iid = match.group('id')
-        srep = match.group()
-        value = value.replace(srep, "<a href='/i/%s/%s'>Issue %s</a>" % (pid, iid, iid))
-        pos = match.end()
-        match = bugalt.search(value, pos)
+    value = bugre.sub(bugreplace, value)
+    value = bugalt.sub(bugreplace, value)
     
-    pos = 0
-    match = gittag.search(value, pos)
-    
-    while match:
-        iid = match.group('id')
+    def gitreplace(match):
+        rid = match.group('id')
         repo = match.group('repo')
-        srep = match.group()
-        value = value.replace(srep, "<a href='/s/%s/%s/%s'>Revision %s</a>" % (pid, repo, iid, iid))
-        pos = match.end()
-        match = gittag.search(value, pos)
-    
-    pos = 0
-    match = gitalt.search(value, pos)
-    
-    while match:
-        iid = match.group('id')
-        repo = match.group('repo')
-        srep = match.group()
-        value = value.replace(srep, "<a href='/s/%s/%s/%s'>Revision %s</a>" % (pid, repo, iid, iid))
-        pos = match.end()
-        match = gitalt.search(value, pos)
+        return "<a href='/s/%s/%s/%s'>%s</a>" % (pid, repo, rid, match.group())
+    value = gittag.sub(gitreplace, value)
+    value = gitalt.sub(gitreplace, value)
             
     return value
