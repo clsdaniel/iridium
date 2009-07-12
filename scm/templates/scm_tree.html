@@ -1,5 +1,6 @@
 {% extends "master.html" %}
 {% load i18n %}
+{% load extratags %}
 
 {% block submenu %}
 <a href="/s/{{ pid }}/{{ rid }}/t">Tree</a>
@@ -9,11 +10,33 @@
 {% block contents %}
 <h1>{{ repo.title }}: Tree</h2><hr/>
 <table>
-<tr><th>Message</th><th>Author</th></tr>
-{% for name, blob in items %}
+{% if tree %}
+<td><img src="/static/img/icon_folder.png"></td>
+<td><a href="/s/{{ pid }}/{{ rid }}/t/{{ tree|trimpath }}">..</a></td>
+{% endif %}
+{% for folder in folders %}
 <tr>
-	<td><a href="/s/{{ pid }}/{{ rid }}/t/{{ blob.id }}">{{ name }}</a></td>
-	<td>{{ blob.id }}</td>
+	<td><img src="/static/img/icon_folder.png"></td><td>
+	{% if tree %}
+	<a href="/s/{{ pid }}/{{ rid }}/t/{{ tree }}/{{ folder }}">
+	{% else %}
+	<a href="/s/{{ pid }}/{{ rid }}/t/{{ folder }}">
+	{% endif %}
+	
+	{{ folder }}</a></td>
+</tr>
+{% endfor %}
+
+{% for file in files %}
+<tr>
+	<td><img src="/static/img/icon_file.png"></td><td>
+	{% if tree %}
+	<a href="/s/{{ pid }}/{{ rid }}/cat/{{ file }}">
+	{% else %}
+	<a href="/s/{{ pid }}/{{ rid }}/cat/{{ tree }}/{{ file }}">	
+	{% endif %}
+	
+	{{ file }}</a></td>
 </tr>
 {% endfor %}
 </table>

@@ -20,6 +20,13 @@ def firstline(value):
     return lines[0]
 
 @register.filter
+def trimpath(value):
+    marker = value.rfind("/")
+    if marker > 0:
+        return value[0:marker]
+    return ""
+
+@register.filter
 def traclinks(value, pid):
     pos = 0
     match = bugre.search(value, pos)
