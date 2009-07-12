@@ -31,9 +31,9 @@
 <tr>
 	<td><img src="/static/img/icon_file.png"></td><td>
 	{% if tree %}
-	<a href="/s/{{ pid }}/{{ rid }}/cat/{{ file }}">
-	{% else %}
 	<a href="/s/{{ pid }}/{{ rid }}/cat/{{ tree }}/{{ file }}">	
+	{% else %}
+	<a href="/s/{{ pid }}/{{ rid }}/cat/{{ file }}">
 	{% endif %}
 	
 	{{ file }}</a></td>
