@@ -8,6 +8,7 @@ class Repository(models.Model):
     project = models.ForeignKey(Project)
     title = models.CharField(max_length=255)
     desc = models.TextField()
+    scm = models.TextField(max_length=12)
     path = models.CharField(max_length=255)
     owner = models.ForeignKey(User)
     
