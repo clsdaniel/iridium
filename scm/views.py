@@ -65,6 +65,7 @@ def viewRepo(request, pid, rid):
     Backend = get_backend(mrepo.scm)
     repo = Backend.Repository(mrepo.path)
     commits = repo.get_recent_commits()
+    print commits
     
     return dict(section='scm', pid=pid, rid=rid, repo=mrepo, commits=commits)
 
@@ -76,7 +77,10 @@ def viewDiff(request, pid, rid, cid):
     Backend = get_backend(mrepo.scm)
     repo = Backend.Repository(mrepo.path)
     
-    com = repo.get_commit_by_id(cid)
+    print "'" + cid + "'"
+    
+    print repo.get_recent_commits()
+    com = repo.get_commit_by_id(str(cid))
     diff = com.diff
     
     if HAS_PYGMENTS:
@@ -94,15 +98,13 @@ def viewDiff(request, pid, rid, cid):
 @login_required
 @template('scm_tree.html')
 def viewTree(request, pid, rid, tree = None):
+    if not tree:
+        tree = ""
     mrepo = getRepository(rid)
     Backend = get_backend(mrepo.scm)
     repo = Backend.Repository(mrepo.path)
     
-    gitrepo = git.Repo(mrepo.path)
-    if tree:
-        tree = gitrepo.tree(tree)
-    else:
-        tree = gitrepo.tree('master')
-    print tree.items()
-    return dict(section="scm", pid=pid, rid=rid, repo=mrepo, items=tree.items(), tree=tree)
+    files, folders = repo.list_directory(tree)
+    
+    return dict(section="scm", pid=pid, rid=rid, tree=tree, repo=mrepo, files=files, folders=folders)
     
