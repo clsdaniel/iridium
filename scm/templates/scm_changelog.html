@@ -22,7 +22,7 @@
 <tr><th>Message</th><th>Author</th></tr>
 {% for commit in commits %}
 <tr>
-	<td><a href="/s/{{ pid }}/{{ rid }}/diff/{{ commit.commid_id }}">{{ commit.message|firstline }}</a></td>
+	<td><a href="/s/{{ pid }}/{{ rid }}/diff/{{ commit.commit_id }}">{{ commit.message|firstline }}</a></td>
 	<td>{{ commit.author }}</td>
 </tr>
 {% endfor %}
