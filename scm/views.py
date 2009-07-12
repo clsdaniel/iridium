@@ -77,9 +77,6 @@ def viewDiff(request, pid, rid, cid):
     Backend = get_backend(mrepo.scm)
     repo = Backend.Repository(mrepo.path)
     
-    print "'" + cid + "'"
-    
-    print repo.get_recent_commits()
     com = repo.get_commit_by_id(str(cid))
     diff = com.diff
     
@@ -108,3 +105,13 @@ def viewTree(request, pid, rid, tree = None):
     
     return dict(section="scm", pid=pid, rid=rid, tree=tree, repo=mrepo, files=files, folders=folders)
     
+@login_required
+def viewFile(request, pid, rid, tree = None):
+    if not tree:
+        tree = ""
+    mrepo = getRepository(rid)
+    Backend = get_backend(mrepo.scm)
+    repo = Backend.Repository(mrepo.path)
+    
+    return HttpResponse(repo.file_contents(str(tree)), "plain/text")
+        
