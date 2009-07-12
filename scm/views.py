@@ -1,7 +1,10 @@
 # Python Imports
 import datetime
 import os
-import git
+
+from pyvcs.backends import get_backend
+from pyvcs.exceptions import *
+
 try:
     import pygments
     from pygments import highlight
@@ -58,8 +61,10 @@ def listRepos(request, pid):
 @template('scm_changelog.html')
 def viewRepo(request, pid, rid):
     mrepo = getRepository(rid)
-    gitrepo = git.Repo(mrepo.path)
-    commits = gitrepo.commits()
+    
+    Backend = get_backend(mrepo.scm)
+    repo = Backend.Repository(mrepo.path)
+    commits = repo.get_recent_commits()
     
     return dict(section='scm', pid=pid, rid=rid, repo=mrepo, commits=commits)
 
@@ -67,10 +72,12 @@ def viewRepo(request, pid, rid):
 @template('scm_diff.html')
 def viewDiff(request, pid, rid, cid):
     mrepo = getRepository(rid)
-    gitrepo = git.Repo(mrepo.path)
-    com = gitrepo.commit(cid)
-    parent = com.parents[0]
-    diff = gitrepo.diff(parent, com)
+    
+    Backend = get_backend(mrepo.scm)
+    repo = Backend.Repository(mrepo.path)
+    
+    com = repo.get_commit_by_id(cid)
+    diff = com.diff
     
     if HAS_PYGMENTS:
         try:
@@ -88,6 +95,9 @@ def viewDiff(request, pid, rid, cid):
 @template('scm_tree.html')
 def viewTree(request, pid, rid, tree = None):
     mrepo = getRepository(rid)
+    Backend = get_backend(mrepo.scm)
+    repo = Backend.Repository(mrepo.path)
+    
     gitrepo = git.Repo(mrepo.path)
     if tree:
         tree = gitrepo.tree(tree)
