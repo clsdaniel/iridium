@@ -65,7 +65,6 @@ def viewRepo(request, pid, rid):
     Backend = get_backend(mrepo.scm)
     repo = Backend.Repository(mrepo.path)
     commits = repo.get_recent_commits()
-    print commits
     
     return dict(section='scm', pid=pid, rid=rid, repo=mrepo, commits=commits)
 
