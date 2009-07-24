@@ -1,0 +1,9 @@
+iridium - Software project management
+
+iridium is a project management application to coordinate
+teams of programmers via a web service.
+
+Requeriments:
+    * django (>= 1.0)
+    * pygments
+    * pyvcs
