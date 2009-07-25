@@ -5,6 +5,12 @@ import os
 
 import simplejson
 
+try:
+    from PIL import Image
+    HAS_PIL = True
+except:
+    HAS_PIL = False
+
 # Django Imports
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
@@ -36,6 +42,36 @@ def getWiki(wid):
     else:
         wiki = WikiPage.objects.get(name=wid.lower())
     return wiki
+
+def genThumbnail(filehash, filename):
+    if not HAS_PIL:
+        return False
+    
+    try:
+        # According to django bug #3848 patch, PIL Image.load() will only
+        # detect corrupt jpeg, and Image.verify() will only detect PNG
+        # corruption but only when called after opening the file.
+        img = Image.open('static/upload/%s/%s' % (filehash, filename))
+        img.load()
+        
+        img = Image.open('static/upload/%s/%s' % (filehash, filename))
+        img.verify()
+    except:
+        return False
+    
+    try:
+        thumb = img.resize((64,64))
+        thumb.save('static/upload/thumbnail/%s.jpg' % filehash, "JPEG")
+    except:
+        return False
+    
+    return True
+
+def getFileType(mime):
+    if mime.find('image') != -1:
+        return 'image'
+    else:
+        return 'file'
 
 @login_required
 @template("wiki_list.html")
@@ -120,21 +156,26 @@ def uploadFile(request, pid, wid):
     fd.close()
     
     filehash = md5hash.hexdigest()
-    os.mkdir('static/upload/%s' % filehash)
+    
+    # Try to create the file upload directory,
+    # and error would indicate that the directory already
+    # exists, we may use it as is.
+    try:
+        os.mkdir('static/upload/%s' % filehash)
+    except:
+        pass
+    
     os.rename('static/upload/stage-%s' % fd.name, 'static/upload/%s/%s' % (filehash, fd.name))
+    
+    if getFileType(fd.content_type) == 'image':
+        genThumbnail(filehash, fd.name)
     
     wfile = wiki.files.create(filename=fd.name, filesize=fd.size, 
                               filetype=fd.content_type,
                               filehash=filehash)
     wfile.save()
     wiki.save()
-
-def getFileType(mime):
-    if mime.find('image') != -1:
-        return 'image'
-    else:
-        return 'file'
-    
+  
 @login_required
 def wikiFiles(request, pid, wid):
     wiki = getWiki(wid)
