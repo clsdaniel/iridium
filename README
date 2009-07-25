@@ -5,5 +5,30 @@ teams of programmers via a web service.
 
 Requeriments:
     * django (>= 1.0)
-    * pygments
-    * pyvcs
+    * pygments ( http://pygments.org/ )
+    * pyvcs  ( http://github.com/alex/pyvcs/tree/master )
+    
+    
+Setting Iridium Up
+--------------------------------------------------------------
+
+As with any other django app, you just syncdb and run 
+(either via apache/wsgi or manage.py runserver).
+
+In order to support file uploads (for documents and
+issues) you need to create a folder in static called
+upload, and a folder called thumbnail inside upload,
+thus you would create the following layout:
+
+static/upload
+static/upload/thumbnail
+
+By default Iridium will try to serve static, however
+you may turn it off and serve it via apache or whatever 
+you are using.
+
+Once you have iridium up and running, log into admin
+interface and add projects, everything else is managed
+by iridium interfaces, altough repositories need to
+be added via admin interface (for now).
+
