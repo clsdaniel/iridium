@@ -35,8 +35,12 @@ refreshFiles = function(){
 	$.getJSON('wikiFiles',
 	function(data){
 		$.each(data.items, function(i, item){
-			if (item.filetype == 'image'){
-				link = '<a href="#" onclick="insertImage(\'' + item.hash + '\', \'' + item.name + '\')"><img src="/static/upload/thumbnail/' + item.hash + '.jpg" border="0" /><br />' + item.name + '</a>';
+			if (item.filetype == "image"){
+				if (item.has_thumbnail){
+					link = '<a href="#" onclick="insertImage(\'' + item.hash + '\', \'' + item.name + '\')"><img src="/static/upload/thumbnail/' + item.hash + '.jpg" border="0" /><br />' + item.name + '</a>';
+				}else{
+					link = '<a href="#" onclick="insertImage(\'' + item.hash + '\', \'' + item.name + '\')">' + item.name + '</a>';
+				}
 			}else{
 				link = '<a href="#" onclick="insertFile(\'' + item.hash + '\', \'' + item.name + '\')">' + item.name + '</a>';
 			}

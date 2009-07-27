@@ -19,3 +19,4 @@ class WikiFile(models.Model):
     filesize = models.IntegerField()
     filetype = models.CharField(max_length=32)
     filehash = models.CharField(max_length=32)
+    has_thumbnail = models.BooleanField()

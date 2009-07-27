@@ -5,12 +5,6 @@ import os
 
 import simplejson
 
-try:
-    from PIL import Image
-    HAS_PIL = True
-except:
-    HAS_PIL = False
-
 # Django Imports
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
@@ -24,6 +18,7 @@ from django.forms.util import ErrorList
 # Project imports
 from iridium.utils.template import template_django as template
 from iridium.utils.template import render_template
+from iridium.utils.thumbnails import genThumbnail
 from iridium.project.models import Project
 
 from models import *
@@ -42,30 +37,6 @@ def getWiki(wid):
     else:
         wiki = WikiPage.objects.get(name=wid.lower())
     return wiki
-
-def genThumbnail(filehash, filename):
-    if not HAS_PIL:
-        return False
-    
-    try:
-        # According to django bug #3848 patch, PIL Image.load() will only
-        # detect corrupt jpeg, and Image.verify() will only detect PNG
-        # corruption but only when called after opening the file.
-        img = Image.open('static/upload/%s/%s' % (filehash, filename))
-        img.load()
-        
-        img = Image.open('static/upload/%s/%s' % (filehash, filename))
-        img.verify()
-    except:
-        return False
-    
-    try:
-        thumb = img.resize((64,64))
-        thumb.save('static/upload/thumbnail/%s.jpg' % filehash, "JPEG")
-    except:
-        return False
-    
-    return True
 
 def getFileType(mime):
     if mime.find('image') != -1:
@@ -167,12 +138,16 @@ def uploadFile(request, pid, wid):
     
     os.rename('static/upload/stage-%s' % fd.name, 'static/upload/%s/%s' % (filehash, fd.name))
     
+    has_thumbnail = False
     if getFileType(fd.content_type) == 'image':
-        genThumbnail(filehash, fd.name)
+        src_img = 'static/upload/%s/%s' % (filehash, fd.name)
+        dest_img = 'static/upload/thumbnail/%s.jpg' % filehash
+        has_thumbnail = genThumbnail(src_img, dest_img)
     
     wfile = wiki.files.create(filename=fd.name, filesize=fd.size, 
                               filetype=fd.content_type,
-                              filehash=filehash)
+                              filehash=filehash,
+                              has_thumbnail=has_thumbnail)
     wfile.save()
     wiki.save()
   
@@ -183,7 +158,8 @@ def wikiFiles(request, pid, wid):
     
     items = dict(items=[dict(name=fd.filename, 
                              hash=fd.filehash, 
-                             filetype=getFileType(fd.filetype)) 
+                             filetype=getFileType(fd.filetype),
+                             has_thumbnail=fd.has_thumbnail) 
                         for fd in files])
     
     return HttpResponse(simplejson.dumps(items))
