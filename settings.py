@@ -83,3 +83,10 @@ INSTALLED_APPS = (
     'iridium.issues',
     'iridium.codereview',
 )
+
+# Iridium specific options
+
+# Thumbnail method to use:
+# - PIL for PIL module (if not installed will just not generated thumbnails)
+# - IM for Image Magick convert via subprocess
+THUMBNAIL_METHOD = 'PIL'
