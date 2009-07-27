@@ -79,3 +79,8 @@ table.styledtable th{
 tr.even {
 	background: #dedfe2;
 }
+
+div.round {
+	border: 1px solid #5074e9;
+	padding: 4px;
+}
