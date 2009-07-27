@@ -8,10 +8,16 @@ class WikiPage(models.Model):
     title = models.CharField(max_length=255)
     published = models.DateField()
     
+    def __unicode__(self):
+        return self.name
+    
 class WikiRevision(models.Model):
     page = models.ForeignKey(WikiPage)
     contents = models.TextField()
     published = models.DateField()
+    
+    def __unicode__(self):
+        return "<Revision %s>" % self.published
     
 class WikiFile(models.Model):
     page = models.ForeignKey(WikiPage, related_name='files')
@@ -20,3 +26,6 @@ class WikiFile(models.Model):
     filetype = models.CharField(max_length=32)
     filehash = models.CharField(max_length=32)
     has_thumbnail = models.BooleanField()
+    
+    def __unicode__(self):
+        return self.filename

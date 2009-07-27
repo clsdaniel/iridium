@@ -33,3 +33,6 @@ class Project(models.Model):
     admins = models.ManyToManyField(User, related_name="administers")
     devels = models.ManyToManyField(User, related_name="develops")
     
+    def __unicode__(self):
+        return self.name
+    

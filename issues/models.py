@@ -40,6 +40,9 @@ class Issue(models.Model):
     priority = models.IntegerField()
     status = models.IntegerField()
     
+    def __unicode__(self):
+        return self.title
+    
 class IssueFile(models.Model):
     issue = models.ForeignKey(Issue, related_name="files")
     filename = models.CharField(max_length=255)
@@ -48,6 +51,9 @@ class IssueFile(models.Model):
     filetype = models.CharField(max_length=32)
     filehash = models.CharField(max_length=32)
     
+    def __unicode__(self):
+        return self.filename
+    
 class IssueComment(models.Model):
     issue = models.ForeignKey(Issue, related_name="comments")
     title = models.CharField(max_length=255)
@@ -55,3 +61,5 @@ class IssueComment(models.Model):
     author = models.ForeignKey(User)
     published = models.DateField()
     
+    def __unicode__(self):
+        return self.title

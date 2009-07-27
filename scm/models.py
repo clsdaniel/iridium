@@ -37,3 +37,6 @@ class Repository(models.Model):
     path = models.CharField(max_length=255)
     owner = models.ForeignKey(User)
     
+    def __unicode__(self):
+        return self.title
+    
